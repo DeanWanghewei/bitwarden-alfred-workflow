@@ -104,6 +104,15 @@ func decodeBitwardenDataJson(byteData []byte) (BwData, error) {
 			newBwData.ActiveUserId = ""
 		}
 
+		if val, ok := table["global_account_activeAccountId"]; ok {
+			newBwData.ActiveUserId = fmt.Sprintf("%s", val)
+			if val == nil {
+				newBwData.ActiveUserId = ""
+			}
+		} else if val == nil {
+			newBwData.ActiveUserId = ""
+		}
+
 		if newBwData.ActiveUserId != "" && newBwData.UserId == "" {
 			// version 1.21.1 and newer
 			newBwData.UserId = newBwData.ActiveUserId
